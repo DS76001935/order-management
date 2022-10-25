@@ -1,0 +1,17 @@
+<div class="wrapper">
+  <div class="row">
+    <div class="col-md-7 col-lg-7">
+      <app-add-order-item (orderAdd)="addOrder($event);"></app-add-order-item>
+    </div>
+    <ng-template #elseBlock>
+      <div class="col-md-4 col-lg-4">
+        <h3>My Orders</h3>
+        <div *ngFor="let item of orders; index as i">
+          <app-order-item [order]="item" [i] ="i" (orderReassigned)="reassignedOrder($event);" (orderDelete)="deleteOrder($event)" (orderCheck)="checkOrder($event);" ></app-order-item>
+        </div>
+      </div>
+    </ng-template>
+    <div class="col-md-4 col-lg-4" *ngIf="orders.length === 0 else elseBlock">No
+      Orders Found</div>
+  </div>
+</div>

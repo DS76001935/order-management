@@ -1,0 +1,53 @@
+<div class="container my-4" [style.background-color]="order.color"
+  style="padding-bottom: 20px;">
+  <div class="row"><div class="col-md-6 col-lg-6"
+      [style.text-decoration]="order.lineThrough"><h6><b>Order #</b>{{order.orderid}}</h6>
+    </div><div class="col-md-6 col-lg-6"
+      [style.text-decoration]="order.lineThrough"><h6><b>Name:</b>
+        {{order.title}}</h6><h6><b>Description:</b>
+        {{order.desc}}</h6>
+      <h6><b>Quantity:</b> {{order.quantity}}</h6></div></div>
+  <div class="row">
+    <div class="col-md-4 col-lg-4">
+      <div class="form-check">
+        <label for="receivedCheck{{i}}">Accepted</label>
+        <input [disabled]="order.created?order.accepted:!order.accepted"
+          [checked]="order.accepted"
+          type="radio"
+          (change)="changeOrderStatus('accepted', order);"
+          id="receivedCheck{{i}}" />
+      </div>
+    </div>
+    <div class="col-md-4 col-lg-4">
+      <div class="form-check">
+        <label for="preparedCheck{{i}}">Prepared</label>
+        <input [disabled]="order.accepted?order.prepared:!order.prepared"
+          [checked]="order.prepared"
+          (change)="changeOrderStatus('prepared', order);"
+          type="radio" id="preparedCheck{{i}}" />
+      </div>
+    </div>
+    <div class="col-md-4 col-lg-4">
+      <div class="form-check">
+        <label for="deliveredCheck{{i}}">Delivered</label>
+        <input [disabled]="order.prepared?order.delivered:!order.delivered"
+          [checked]="order.delivered"
+          (change)="changeOrderStatus('delivered', order);"
+          type="radio" id="deliveredCheck{{i}}" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-lg-2" id="myTimeout" style="position:relative;
+      top:15px;"><b><span
+          *ngIf="order.delivered">02:00:00</span></b></div>
+    <div class="col-md-6 col-lg-6" style="position: relative; left: 200px; top:
+      10px;">
+      <button class="btn btn-primary btn-sm" [disabled]="!order.delivered"
+        (click)="Reassign(order);">ReAssign</button>&nbsp;
+      <button class="btn btn-danger btn-sm" (click)="Delete(order);">Delete</button>
+    </div>
+  </div>
+
+
+</div>
